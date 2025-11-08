@@ -59,14 +59,16 @@ The gender column consists of 2 unique values: Male and Female. There are no nul
 
 ### Are there variables that are not relevant to the analysis
 
-It was decided that customer id is not relevant to the further analysis. Consequently it will dropped from the dataset.
-Duplicates
+It was decided that customer id is not relevant to the further analysis. It does not explain the customer churn. Consequently it will dropped from the dataset.
+
+
+### Duplicates
 
 The dataset was also checked for duplicates using df.duplicated().sum()
 
 
 
-Are there variables in the dataset that are not relevant to the analysis
+### Are there variables in the dataset that are not relevant to the analysis
 
 Our team has decided to keep all the columns. However, we believe that some columms will have low feature importance: 
 
@@ -92,4 +94,68 @@ Normality tests were conducted Q-Q plots. Credit score is approximately normal a
 
 ### Exploratory Data Analysis
 
-What is the overall customer churn in the dataset?
+### What is the overall customer churn in the dataset?
+
+In order to find the customer churn rate, we divide the number of clients that churn (churn = 1) by the total number of clients.
+
+20.36% is the overall customer churn.
+
+### Churn Rate by demographic variables
+
+### Categorical variables
+
+### Gender
+
+Male Churn Rate is 16.49% . Female Churn Rate is higher, having a 24.98%.
+
+### Country
+
+The German customers are churning the most, 32%. Spain and France have a similar churning rate, being 17% and 16%, lower than the german country
+
+### Tenure
+
+The % of customers churning is relatively similar if we take into account the number of years that the customer had an account. The lowest percentage of churned are the clients owning an account for 7 years.
+
+### Products Number
+
+All customers owning 4 products had churned. We can see a trend that if the customer has 2 products, that they are less customers that churn. However, if they purchase new products (3-4) then it increases exponentially: for 3 - 83%, 4 - 100%
+
+
+### Credit Card
+
+Customers having a credit card have a similar churn rate 20% comparing to the customers that do not have.
+
+
+### Active Member
+
+The customers that are not active members are churning more (27% out of all non active members) comparing to the active members (churn rate of 14%)
+### Numeric values
+
+In order to plot the bar plots, we divided the column data in multiple bins in order to assess the churn rate for each group.
+
+### Age 
+
+The age was divided in 6 bins. The highest percentage (55%) of customers churning are between 51-61. The age group
+
+
+### Credit Score
+
+Customers segment consisting of a credit score ranging from 384- 451 has the highest churn rate of 34%. The other credit score groups have a churn rate of 18-21%.
+
+### Balance
+
+Half of the all customers that have a high-balance (200800 - 2509000) are churning. In addition, 34% of customers with low balance (0 - 50180) also churns. Other balance segments have a similar churn rate of 20-26%.
+
+### Estimated Salary
+
+There is a stable churn rate across the estimated salary groups ranging between 19% and 22%
+
+
+### Is there a relationship between tenure and churn rate?
+
+The correlation between tenure and churning is -0.01. This would mean that there is no corelation between the feature tenure and target variable.
+
+
+### Patterns in the dataset
+
+The highest positive correlation is between the age and churn (0.28). The elderly people tend to churn more than the younger clients. However, in the correlation matrix, we can also detect a negative relationship between balance and number of products (-0.31). This means that if the customer has more products then the balance will decrease.
