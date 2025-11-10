@@ -232,7 +232,24 @@ The results obtained from the default random forest classifier are similar to th
 
 In order to decrease the overfitting and generalize the mode, we will tune the hyperparameter. Our focus will be on number of trees, depth of each tree, minimum samples of leafs and nodes, number of features per split and class weight. To make it more efficient, we will apply the grid search to find the optimal settings without the manual trial and error.
 
+The grid search will try every possible combination of the following parameter grid:
+- n_estimators : [200,300] 
+- max_depth : [3,5,7]
+- min_samples_leaf: [20,50]
+- max_features': [sqrt,log2]
+- class_weight': [balanced]
 
+In total 24 models.
+
+After training the model , we have computed the train score and test score, both of them being almost similar 81%. The best parameters selected by grid search are: 
+- max_depth: 7
+- max_features: sqrt 
+- min_samples_leaf: 20
+- n_estimators: 200
+
+Comparing the results with the default model, we can see a strong recall (0.72): the model identifies 72% of the actual churners, moderate precision (0.53), half of the customers predicted are actual churners, and a good F1 for churn (0.61).
+
+The feature importance are similar to the decision tree classifier besides the balance. Random Forest seems to prioritize churners based on their balance if they will churn or not.
 
 ### Neural Network (basic Multi-Layer Perceptron)
 
