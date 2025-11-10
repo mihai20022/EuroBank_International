@@ -159,3 +159,83 @@ The correlation between tenure and churning is -0.01. This would mean that there
 ### Patterns in the dataset
 
 The highest positive correlation is between the age and churn (0.28). The elderly people tend to churn more than the younger clients. However, in the correlation matrix, we can also detect a negative relationship between balance and number of products (-0.31). This means that if the customer has more products then the balance will decrease.
+
+A weak negative correlation can be spotted between active member and churn (-0.15). The active members are churning less often than the passive ones. In addition, balance has a weak positive correlation with the target variable (0.12). It might be the case that customers owning a higher balance have a higher probability of churning.
+
+
+### Model building
+
+Which variables are the strongest predictors of customer churn? How did you conclude these are the strongest predictors?
+
+
+The strongest predictors can be identified using correlation matrix. The correlation is compatible only with numeric features. In our dataset ebi_base_processed_model.csv the categorical features were transformed using one hot encoding - get_dummies (if the column had 3 or more unique values) or binary encoding in case the column has only 2 unique values.
+
+The strongest predictors are:
+- age (0.28)
+- country_Germany (0.17)
+- balance (0.11)
+- active_member (-0.15)
+- gender (-0.1)
+
+In the following questions we will explore 3 models: Decision Tree Classifier (Tree-based), Random Forest (Tree-based ensemble), Neural Network (basic Multi-Layer Perceptron) and the feature importance for each model.
+
+### Decision Tree Classifier (Tree-based)
+
+Decision Tree is a supervised learning algorithm. It consists of a hierarchical tree structure containg branches, nodes, leaf nodes and root nodes. This model was chosen for its well-known flexibility and interpretability.
+
+First, we will test the model using the default decision tree classifier without any parameters.
+
+The train score is 1 and the test score is 0.8. There is clearly an overfitting scenario, the model is not generalized well. In order to fix the overfitting problem, we will introduce parameters tp the model such as max_depth, min_samples_leaf, min_samples_split.
+
+After training the model, our team compued the classification report:
+
+Accuracy 0.8 - the model predicted 80% of all results. However the data is imbalanced (1434 and 366), the model can get a high accuracy by predicting "No Churn" for most cases.
+
+F1-score for churn 0.51 - The model identifies only half of the churners. Precision and Recall are both 0.51 meaning that 51% of the predicted churners were actually churners and 51% of real churners were detexted.
+
+F1-score for non-churners 0.87 - The model identifies 87% of all non-churning. This is a good score, but it might be due to the imbalanced dataset. (1434 vs 366).
+
+Now we will test the decision tree classifier using several parameters.
+
+First, we have started to increase from a max depth of 1 to 7, whereas with the 7, the train and test score are the highest and more similar. Therefore, no more overfitting. If we increase the minimum of samples leaf to 50, then the F1-score is also increasing from 0.51 to 0.57. However, a value above 50 will decrease the F1-score back to the old value.
+
+Instead of changing the parameters, we will try to resample the dataset using SMOTE due to the class imbalance: 1434 non-churners and 366 churners. The SMOTE sampling creates new synthetic minority samples by interpolation.
+
+After applying the SMOTE, we can see a decrease in precision, but an increase in recall to a score of 0.7. Overall the F1-score remains almost the same 0.55. THe overall accuracy also decreased to 0.77. Now the model can detect a larger amount of customers that are churning.
+
+In order to see the feature importance of the model, our team has acccessed throuugh the parameter feature_importances attribute of the model. These are the following results:
+age                 0.471738
+products_number     0.221091
+active_member       0.135318
+balance             0.090999
+gender              0.050010
+country_Germany     0.015698
+estimated_salary    0.005595
+tenure              0.004001
+credit_card         0.003185
+credit_score        0.002365
+country_Spain       0.000000
+The age has the highest importance (0.47) when the model splits the node. The products number has a moderate influence (0.22) on the model. Starting wit the active member that has an importance of 0.14, other features have a importance below 10%.
+
+A bar chart has been ploted to better visualize the critical feature when using decision tree classifier.
+
+### Random Forest (Tree-based ensemble)
+
+Random Forest is a machine learning algorithm, par of the Decision Tree-based models, that uses many decision trees to make better predictions. Each tree has a different part of the data, combining the results by using voting for classification in order to reduce errors and improve accuracy of the model. The model was chosen due to several advantages:
+- High accuracy. Provides reliable and precise predictions.
+- Handles missing values. The model can predict with incomplete data.
+- Reduces overfitting. Ensures generalization to the test data.
+
+We will start with a simple model to understand the default performance of the Random Forest Classifier.
+
+The results obtained from the default random forest classifier are similar to the fine-tuned decision classifier. However, the model is overfitting according to the train accuracy that is 1 and the test accuracy that is 0.86, respectively.
+
+In order to decrease the overfitting and generalize the mode, we will tune the hyperparameter. Our focus will be on number of trees, depth of each tree, minimum samples of leafs and nodes, number of features per split and class weight. To make it more efficient, we will apply the grid search to find the optimal settings without the manual trial and error.
+
+
+
+### Neural Network (basic Multi-Layer Perceptron)
+
+
+Neural network is a machine learning model that tries to mimic the functions of the huuman breain. The model processes the data, learns patterns and allows tasks such as pattern recognition and decision-making. Our team has decided to use Perceptron, the simplest model of Neural Networks. This model is designed to output a binary ouput (1 or 0), in our case would be if the customer churns or not.
+
