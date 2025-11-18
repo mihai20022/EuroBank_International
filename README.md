@@ -251,8 +251,62 @@ Comparing the results with the default model, we can see a strong recall (0.72):
 
 The feature importance are similar to the decision tree classifier besides the balance. Random Forest seems to prioritize churners based on their balance if they will churn or not.
 
-### Neural Network (basic Multi-Layer Perceptron)
+The feature importance is outlined below:
+age                 0.421327
+products_number     0.228409
+balance             0.094169
+active_member       0.083833
+country_Germany     0.059447
+estimated_salary    0.031827
+credit_score        0.029527
+gender              0.026017
+tenure              0.015593
+country_Spain       0.005185
+credit_card         0.004664
+
+### Neural Network (basic Multilayer Perceptron)
 
 
-Neural network is a machine learning model that tries to mimic the functions of the huuman breain. The model processes the data, learns patterns and allows tasks such as pattern recognition and decision-making. Our team has decided to use Perceptron, the simplest model of Neural Networks. This model is designed to output a binary ouput (1 or 0), in our case would be if the customer churns or not.
+Neural network is a machine learning model that tries to mimic the functions of the huuman breain. The model processes the data, learns patterns and allows tasks such as pattern recognition and decision-making. Our team has decided to use a multilayer Perceptron, the simplest model of Neural Networks. This model is designed to output a binary ouput (1 or 0), in our case would be if the customer churns or not. It's less interpretable than a tree model, but can achieve a higher F1/recall after tuning.
+
+First we will start with a small model - having one hidden layer with 50 neurons. 
+
+The train and test score are between 86-87%, so no overfitting. The overall f1-score is 0.86. Comparing Random Forest's F1 of chuners (0.61) - it has a similar f1 (0.59), but much better calibrated. We will finetune the model using a parameter grid to see which parameters will help us to achieve the best f1-score, predicting the churners.
+
+A grid search was applied to fine-tune the multilyaer perceptron. The grid explored multiple combinations of hidden layers - network architecture, activation function - determines how each neuron trasforms its input, alpha - prevents overfitting using penalties, learning rate - controls how each gradient updates its step during optimization, batch size - number of samples processed before updating the model weights.
+
+After performing the grid search, the best parameters were outputed:
+ - activation: tanh.
+ - alpha: 0.001.
+ - batch size: 32.
+ - hidden layers: (100,50).
+ - learning rate: 0.001.
+
+ The train and test score are similar, being around 87%. The main differences between the default and fine-tuned multilayer perceptron are their performance to the precision and recall. The default one is performing better  (74%)at predicting the positive classes out of all predictions (prediction). Its recall score is low, meaning that out of all the actual class, the model only predicted 49%. Comparing to the fine-tuned model, the precision for the churn class is 76% that is higher than the default score. On the other hand, the recall is  51%. Overall the accuracy of both models are very ranging between 86-87%.
+
+The improvements will be outlined below:
+- Accuracy from 86% to 87%.
+- Precision from 0.74 to 0.76
+- Recall from 0.49 to 0.51
+- F1-score from 0.59 to 0.61
+
+These results indicate that fine-tuning the model helped to achieve higher scores to detet more churners while also detecting false positives.
+
+The feature importance were computed using the feature permutation, measuring how much the model's performance drops when shuffling the feature. The feature_importance cannot be used because neural networks do not belong to the tree-based classifiers. The results are outlined below:
+
+age                 0.249809
+products_number     0.180151
+active_member       0.072176
+country_Germany     0.065969
+balance             0.036949
+credit_card         0.010774
+credit_score        0.010687
+tenure              0.008944
+gender              0.007035
+country_Spain       0.005010
+estimated_salary    0.000526
+
+For convenience, a plot was constructed to visualize the high-important features.
+
+
 
