@@ -135,7 +135,7 @@ In order to plot the bar plots, we divided the column data in multiple bins in o
 
 ### Age 
 
-The age was divided in 6 bins. The highest percentage (55%) of customers churning are between 51-61. The age group
+The age was divided in 6 bins. The highest percentage (55%) of customers churning are between 51-61. The age group. 41-50 and 62-71 have a similar churn rate of 34% and 29% respectively.
 
 
 ### Credit Score
@@ -308,5 +308,28 @@ estimated_salary    0.000526
 
 For convenience, a plot was constructed to visualize the high-important features.
 
+
+
+f) Recommendations
+
+
+It is critical to understand which customers might churn. Furthermore, knowing how to retain them long term, would increase the business sustainability and profitability. One reason ha customers churn is that the bank is attracting wrong customers. It's very often how customer can sign up without fully understand the product. After the data exploratory analysis, the age group of 41-50,  51-61, 62-71 have the highest churn rate - 34% and 55%. In order to solve this issue, there are two ways:
+
+1. Focus more on attracting potential customers that are ranging between 17-40. In this way, narrowing down the customer target, would exponentially decrease customer churn. Another viable solution is to ask the right questions upfront. The bank might want to target a broad audience of potential customers. In this case, it is critical to ask the right questions to understand its customers. Some possible questions would be : 'What are you trying to solve?', 'What functionalities are you planning to use? '. In this way, the bank can target the right customers while helping them to understand whether the product and service would fit their needs.
+
+
+2. By analyzing the dataset, it was observed that  customers with 3 and 4 bank products have a higher churn rate  of 83% and 100% respectively. It might be the case that the bank products have bugs that customers cannot fix. The bank can lose the revenue and productivity, losing valuable customers. The bank shall keep the customers updated, specifically when its related to bugs. In addition, while planning the product development, the engineers should not only focus on new features but also on the technical debt. 
+
+
+3. We can see a clear increase in churn rate as the customers' balance increases. The highest churn rate is 57%, being the customers with a balance ranging from 200800-250900. Effective pricing is a crtical role in customer retention. If the customers perceive the bank as too cheap for the value its offering, they might leave and change the bank. The most optimal way is to check properly the bank's product pricing. The customers need to see the value, in case you are offering more value with the product, then the price should be increased. The team should match their pricing to the customers' willingness to pay.
+
+
+It was decided to use the Random Forest model.
+
+The value of retaining a customer is 5 euro and the cost incurred by the bank to avoid a customer churn is 1 euro.
+
+In my opinion, the bank should assess what is their budget for retaining the possible churn clients. If the budget is low, then they should focus on the customers that are more likely to churn for example where the churn probability is above 80%. In this way, the bank would target only the customers that would churn while also efficiently spending the budget. If the custommer value would be 10 euros then they could afford a higher budget to target the less-likely clients that are possible to churn.
+
+use a formula maybe?
 
 
