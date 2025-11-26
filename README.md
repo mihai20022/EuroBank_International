@@ -326,10 +326,33 @@ It is critical to understand which customers might churn. Furthermore, knowing h
 
 It was decided to use the Random Forest model.
 
+### Predicted Values in EBI EXP customers:
+
+Customers likely to churn - 307.
+Customers likely not to churn - 693
+
 The value of retaining a customer is 5 euro and the cost incurred by the bank to avoid a customer churn is 1 euro.
 
-In my opinion, the bank should assess what is their budget for retaining the possible churn clients. If the budget is low, then they should focus on the customers that are more likely to churn for example where the churn probability is above 80%. In this way, the bank would target only the customers that would churn while also efficiently spending the budget. If the custommer value would be 10 euros then they could afford a higher budget to target the less-likely clients that are possible to churn.
 
-use a formula maybe?
+Which customers should the bank target?
+
+The team will use the output of the final Random Forest model to decide which customers would be worth it to target. If we take into account the business value and cost, then we can use the following formula when calculating the expected profit:
+
+Value of retaining a customer * predicted churn probability - cost. By plugging the positive value of retaining a customer and multiply with the probability we make the scneario as we targeted successfully the customer. The substracted cost is the retention action such as call or discount, that is always paid by the company.
+
+We should only target the customer if the expected profit is above 0. Consequently if we choose the formula of:
+probability * value of retaining the customer - cost > 0 then the clients with a probability higher than cost over value of retention should be selected. Next, we will explore the two cases - 1st case when the value of retaining a customer is 5 euro and anther one is 10 euro.
 
 
+1st case. Value of retaining is 5 euro, cost is 1 euro.
+
+In order to find which clients should be retained, the cost will be divide by the value. In thus case it will be 20% Consequently, we will select the clients, that have a likelyhood of 20% churning.
+
+The customers that should be targeted if the value of retaining the customers is 5 euro are outlined in the customers_value_5 dataframe. There are 771 customers, and the cost of targeting these customers are 771 euro
+
+
+2st case. Value of retaining is 10 euro, cost stays the same is 1 euro.
+
+If we divide the cost by expected profit, the result is 10%. It becomes more profitable to attract a larger segment of clients, not only high-risk, due to the higher value that the customer can bring, the company can afford more budget to spend on less likely customers that will churn
+
+For the customers with a higher expected profit, we will apply the same procedure. Only the clients having a probability of 10% and more will be selected. The customers_value_10 dataframe was created to trace the clients that have a probability of 10% or more to churn. The total customers to target having an exptected profit of 10 eurp are 960, the cost being 960 euro.
